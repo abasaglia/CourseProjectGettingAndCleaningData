@@ -35,6 +35,13 @@ y_label<-(activity[y$activity,])$activity_label
 # Subsetting with column names containing mean or std 
 X_mean_std<-X[,grepl("mean\\(\\)|std\\(\\)",ignore.case=T,colnames(X))]
 
+# Replacing in colum names
+# "(" and ")" with "" 
+# "," and "-" with "_"
+new_colum_names<-gsub("\\(|\\)","",colnames(X_mean_std))
+new_colum_names<-gsub("\\-|,","_", new_colum_names)
+colnames(X_mean_std)=new_colum_names
+
 # Add activity label e subject
 dataset_all_meanstd<-cbind(X_mean_std,y_label,subject)
 
