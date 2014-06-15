@@ -47,13 +47,14 @@ ActivityType<-y_label
 dataset_all_meanstd<-cbind(X_mean_std,ActivityType,subject)
 
 #create a data set with the average of each variable for each activity and each subject
-dataset_all_average <- aggregate(dataset_all_meanstd[,1:66], by=list(dataset_all_meanstd$subject), FUN="mean")
+dataset_all_average <- aggregate(dataset_all_meanstd[,1:66], by=list(dataset_all_meanstd$ActivityType,dataset_all_meanstd$subject), FUN="mean")
 #Change the colum names adding "MeanOf_" prefix
 cn<-function(colname) {
     res<-paste ("MeanOf_",colname,sep="")
 }
 colnames(dataset_all_average)=lapply (colnames(dataset_all_average),cn)
-colnames(dataset_all_average)[1] = "Subject"
+colnames(dataset_all_average)[1] = "ActivityType"
+colnames(dataset_all_average)[2] = "Subject"
 
 # Write to the disk as CSV files
 file = paste(".", "dataset_all_meanstd.txt", sep="/")
